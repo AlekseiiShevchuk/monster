@@ -18,7 +18,7 @@ class BodySeed extends Seeder
         ];
 
         foreach ($items as $item) {
-            \App\Body::create($item);
+            \App\Body::firstOrCreate($item);
         }
     }
 }

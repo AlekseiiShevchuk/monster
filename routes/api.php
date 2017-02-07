@@ -2,10 +2,11 @@
 
 Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
 
-        Route::resource('hairs', 'HairsController');
+Route::get('masks/{mask}/change', 'MasksController@change');
+Route::get('masks/{mask}/buy', 'MasksController@buy');
 
-        Route::resource('bodies', 'BodiesController');
-
-        Route::resource('results', 'ResultsController');
+    Route::get('/profile', function () {
+        return \Illuminate\Support\Facades\Auth::user();
+    });
 
 });

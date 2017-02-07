@@ -18,7 +18,7 @@ class SuitSeed extends Seeder
         ];
 
         foreach ($items as $item) {
-            \App\Suit::create($item);
+            \App\Suit::firstOrCreate($item);
         }
     }
 }

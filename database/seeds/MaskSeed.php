@@ -18,7 +18,7 @@ class MaskSeed extends Seeder
         ];
 
         foreach ($items as $item) {
-            \App\Mask::create($item);
+            \App\Mask::firstOrCreate($item);
         }
     }
 }

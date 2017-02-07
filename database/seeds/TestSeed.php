@@ -21,7 +21,7 @@ class TestSeed extends Seeder
         ];
 
         foreach ($items as $item) {
-            \App\Test::create($item);
+            \App\Test::firstOrCreate($item);
         }
     }
 }

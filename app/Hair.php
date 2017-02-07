@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 */
 class Hair extends Model
 {
+    protected $hidden = ['created_at','updated_at'];
     protected $fillable = ['image', 'price', 'available_as_default'];
     
 

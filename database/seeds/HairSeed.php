@@ -18,7 +18,7 @@ class HairSeed extends Seeder
         ];
 
         foreach ($items as $item) {
-            \App\Hair::create($item);
+            \App\Hair::firstOrCreate($item);
         }
     }
 }

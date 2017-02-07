@@ -33,6 +33,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            \App\Http\Middleware\AuthenticateByDeviceId::class,
             'throttle:60,1',
             'bindings',
         ],
