@@ -24,7 +24,7 @@ class AuthenticateByDeviceId
             $user = User::findOrFail($user->id);
             Auth::login($user);
         }else{
-            throw new BadRequestHttpException('you should send device_id in your request headers');
+            throw new BadRequestHttpException('you should send "device-id" in your request headers');
         }
         return $next($request);
     }

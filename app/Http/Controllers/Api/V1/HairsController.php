@@ -3,47 +3,44 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Hair;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreHairsRequest;
-use App\Http\Requests\UpdateHairsRequest;
-use App\Http\Controllers\Traits\FileUploadTrait;
+use Illuminate\Support\Facades\Auth;
 
 class HairsController extends Controller
 {
-    use FileUploadTrait;
-
-    public function index()
+    public function change(Hair $hair)
     {
-        return Hair::all();
+        $user = Auth::user();
+        $hairWithPivot = $user->available_hairs()->where('hair_id', $hair->id)->first();
+
+        if (0 == $hairWithPivot->pivot->is_purchase) {
+            return response('You can not get this item (buy it first)', 401);
+        }
+
+        $user->current_hair()->associate($hair);
+        return $user;
     }
 
-    public function show($id)
+    public function buy(Hair $hair)
     {
-        return Hair::findOrFail($id);
-    }
+        $user = Auth::user();
 
-    public function update(UpdateHairsRequest $request, $id)
-    {
-        $request = $this->saveFiles($request);
-        $hair = Hair::findOrFail($id);
-        $hair->update($request->all());
+        if ($user->score < $hair->price) {
+            return response('You do not have enough scores to buy this item', 401);
+        }
 
-        return $hair;
-    }
+        $hairWithPivot = $user->available_hairs()->where('hair_id', $hair->id)->first();
 
-    public function store(StoreHairsRequest $request)
-    {
-        $request = $this->saveFiles($request);
-        $hair = Hair::create($request->all());
+        if (1 == $hairWithPivot->pivot->is_purchase) {
+            return response('you already have this item', 401);
+        }
 
-        return $hair;
-    }
-
-    public function destroy($id)
-    {
-        $hair = Hair::findOrFail($id);
-        $hair->delete();
-        return '';
+        //buying
+        $user->score = ($user->score - $hair->price);
+        $user->save();
+        $hairWithPivot->pivot->is_purchase = 1;
+        $hairWithPivot->pivot->save();
+        //refresh model from DB before return
+        return $user->find($user->id);
     }
 }

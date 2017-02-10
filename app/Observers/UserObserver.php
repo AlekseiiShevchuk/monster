@@ -31,6 +31,7 @@ class UserObserver
      */
     public function created(User $user)
     {
+
         $hairs = Hair::all(['id', 'available_as_default']);
         foreach ($hairs as $hair) {
             $user->available_hairs()->attach($hair->id, ['is_purchase' => $hair->available_as_default]);
@@ -54,6 +55,7 @@ class UserObserver
 
     public function creating(User $user)
     {
+        //set default monster parts as current on user creating
         $user->current_hair()->associate($this->hair);
         $user->current_mask()->associate($this->mask);
         $user->current_body()->associate($this->body);
