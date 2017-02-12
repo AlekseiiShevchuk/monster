@@ -12,8 +12,14 @@ class BodySeed extends Seeder
     public function run()
     {
         $items = [
-            
-            ['id' => 1, 'image' => '1486458240-telo1@3x.png', 'price' => null, 'available_as_default' => 1,],
+
+            [
+                'id' => 1,
+                'image' => '1486458240-telo1@3x.png',
+                'price' => null,
+                'available_as_default' => 1,
+                'body_miniature_image' => ''
+            ],
 
         ];
 
