@@ -39,4 +39,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('tests_mass_destroy', ['uses' => 'TestsController@massDestroy', 'as' => 'tests.mass_destroy']);
     Route::resource('results', 'ResultsController');
     Route::post('results_mass_destroy', ['uses' => 'ResultsController@massDestroy', 'as' => 'results.mass_destroy']);
+    Route::resource('localizations', 'LocalizationsController');
 });

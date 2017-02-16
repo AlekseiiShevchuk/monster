@@ -173,6 +173,17 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('result_delete', function ($user) {
             return in_array($user->role_id, [1]);
         });
+        // Auth gates for: Localizations
+        Gate::define('localization_access', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('localization_edit', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+        Gate::define('localization_view', function ($user) {
+            return in_array($user->role_id, [1]);
+        });
+
 
     }
 }

@@ -118,7 +118,12 @@
                 </a>
             </li>
             @endcan
-            
+            <li class="{{ $request->segment(1) == 'localizations' ? 'active' : '' }}">
+                <a href="{{ route('localizations.index') }}">
+                    <i class="fa fa-gears"></i>
+                    <span class="title">@lang('quickadmin.localizations.title')</span>
+                </a>
+            </li>
 
             <li>
                 <a href="#logout" onclick="$('#logout').submit();">
